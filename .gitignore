@@ -2,6 +2,7 @@
 envi
 apikey.txt
 config/secrets.json
+app.js
 
 # Logs
 logs

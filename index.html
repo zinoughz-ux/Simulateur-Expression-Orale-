@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur TCF Canada — Expression Orale</title>
+    <meta name="description"
+        content="Simulateur d'examen TCF Canada — Expression Orale. Entraînez-vous aux trois tâches avec des conditions d'examen réalistes, génération de sujets par IA et enregistrement audio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Ambient background -->
+    <div class="ambient-bg">
+        <div class="ambient-orb ambient-orb-1"></div>
+        <div class="ambient-orb ambient-orb-2"></div>
+        <div class="ambient-orb ambient-orb-3"></div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app">
+        <!-- Header -->
+        <header id="app-header">
+            <div class="header-left">
+                <div class="logo-mark">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
+                        <path d="M8 12h16M8 16h12M8 20h14" stroke="#fff" stroke-width="2" stroke-linecap="round" />
+                        <circle cx="24" cy="20" r="4" fill="#fff" fill-opacity="0.3" />
+                        <path d="M23 19v2.5l1.5-1.25L23 19z" fill="#fff" />
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
+                                <stop stop-color="#6366f1" />
+                                <stop offset="1" stop-color="#8b5cf6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="header-title">
+                    <h1>TCF Canada</h1>
+                    <span class="header-subtitle">Expression Orale</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="btn-theme" class="icon-btn" title="Changer le thème" aria-label="Changer le thème">
+                    <svg id="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    <svg id="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                </button>
+                <button id="btn-settings" class="icon-btn" title="Paramètres" aria-label="Paramètres">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    </svg>
+                </button>
+                <button id="btn-history" class="icon-btn" title="Historique" aria-label="Historique">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+
+            <!-- ============ LANDING SCREEN ============ -->
+            <section id="screen-landing" class="screen active">
+                <div class="landing-hero">
+                    <div class="hero-badge">Simulateur Officiel</div>
+                    <h2 class="hero-title">Préparez votre <span class="gradient-text">Expression Orale</span></h2>
+                    <p class="hero-desc">Entraînez-vous dans des conditions réelles d'examen avec une génération de
+                        sujets par IA, des chronomètres précis et un enregistrement audio professionnel.</p>
+                </div>
+
+                <div class="task-cards">
+                    <div class="task-card" data-task="1">
+                        <div class="task-card-header">
+                            <span class="task-number">Tâche 1</span>
+                            <span class="task-duration">2 min</span>
+                        </div>
+                        <h3>Entretien dirigé</h3>
+                        <p>Échange simple avec l'examinateur pour se présenter.</p>
+                        <div class="task-tags">
+                            <span class="tag">Présentation</span>
+                            <span class="tag">Interview</span>
+                        </div>
+                        <button class="btn-start-task" data-task="1">Commencer</button>
+                    </div>
+                    <div class="task-card" data-task="2">
+                        <div class="task-card-header">
+                            <span class="task-number">Tâche 2</span>
+                            <span class="task-duration">5 min 30</span>
+                        </div>
+                        <h3>Exercice en interaction</h3>
+                        <p>Posez des questions à l'examinateur sur un sujet de la vie quotidienne. Temps de préparation
+                            inclus.</p>
+                        <div class="task-tags">
+                            <span class="tag">Préparation</span>
+                            <span class="tag">Jeu de rôle</span>
+                        </div>
+                        <button class="btn-start-task" data-task="2">Commencer</button>
+                    </div>
+                    <div class="task-card" data-task="3">
+                        <div class="task-card-header">
+                            <span class="task-number">Tâche 3</span>
+                            <span class="task-duration">4 min 30</span>
+                        </div>
+                        <h3>Expression d'un point de vue</h3>
+                        <p>Donnez votre opinion sur un sujet, en argumentant pour convaincre. Pas de temps de
+                            préparation.</p>
+                        <div class="task-tags">
+                            <span class="tag">Opinion</span>
+                            <span class="tag">Argumentation</span>
+                        </div>
+                        <button class="btn-start-task" data-task="3">Commencer</button>
+                    </div>
+                </div>
+
+                <button id="btn-full-exam" class="btn-full-exam">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                    Examen complet (12 minutes)
+                </button>
+            </section>
+
+            <!-- ============ PROMPT SETUP SCREEN ============ -->
+            <section id="screen-setup" class="screen">
+                <div class="setup-container">
+                    <button id="btn-back-landing" class="btn-back">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Retour
+                    </button>
+                    <div class="setup-header">
+                        <span class="setup-task-badge" id="setup-task-badge">Tâche 1</span>
+                        <h2 id="setup-task-title">Entretien dirigé</h2>
+                    </div>
+                    <div class="setup-options">
+                        <div class="option-group">
+                            <label class="option-label">Source du sujet</label>
+                            <div class="toggle-group">
+                                <button class="toggle-btn active" data-source="ai" id="toggle-ai">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path
+                                            d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z" />
+                                    </svg>
+                                    Généré par IA
+                                </button>
+                                <button class="toggle-btn" data-source="custom" id="toggle-custom">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                    </svg>
+                                    Sujet personnalisé
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- AI Topic Input -->
+                        <div id="ai-topic-group" class="setting-group">
+                            <label class="setting-label" for="ai-topic-input">Thème (Optionnel)</label>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" id="ai-topic-input" class="settings-input"
+                                    placeholder="Ex: Voyage, Travail, Famille..." style="flex: 1;">
+                                <button id="btn-random-subject" class="btn btn-secondary" style="padding: 0 12px;"
+                                    title="Choisir un sujet officiel aléatoire">
+                                    🎲
+                                </button>
+                            </div>
+                            <p class="setting-hint">Laissez vide pour un sujet aléatoire général.</p>
+                        </div>
+
+                        <!-- Custom Prompt Input -->
+                        <div class="option-group hidden" id="custom-prompt-group">
+                            <label class="option-label" for="custom-prompt-input">Votre sujet / question</label>
+                            <textarea id="custom-prompt-input" class="text-input textarea" rows="4"
+                                placeholder="Entrez votre sujet ou question personnalisée..."></textarea>
+                        </div>
+                    </div>
+
+                    <button id="btn-begin-task" class="btn-primary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        Lancer la tâche
+                    </button>
+                </div>
+            </section>
+
+            <!-- ============ EXAM SCREEN ============ -->
+            <section id="screen-exam" class="screen">
+                <div class="exam-container">
+                    <!-- Top Status Bar -->
+                    <div class="exam-status-bar">
+                        <div class="exam-task-info">
+                            <span class="exam-task-badge" id="exam-task-badge">Tâche 1</span>
+                            <span class="exam-task-name" id="exam-task-name">Entretien dirigé</span>
+                        </div>
+                        <div class="exam-phase-indicator" id="exam-phase-indicator">
+                            <span class="phase-dot"></span>
+                            <span class="phase-label" id="phase-label">Parole</span>
+                        </div>
+                    </div>
+
+                    <!-- Timer Ring -->
+                    <div class="timer-section">
+                        <div class="timer-ring-container">
+                            <svg class="timer-ring" viewBox="0 0 200 200">
+                                <circle class="timer-ring-bg" cx="100" cy="100" r="90" />
+                                <circle class="timer-ring-progress" id="timer-ring-progress" cx="100" cy="100" r="90" />
+                            </svg>
+                            <div class="timer-display">
+                                <span class="timer-time" id="timer-time">02:00</span>
+                                <span class="timer-phase-label" id="timer-phase-label">Temps restant</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Display -->
+                    <div class="prompt-section">
+                        <div class="prompt-card" id="prompt-card">
+                            <div class="prompt-label">Sujet</div>
+                            <div class="prompt-text" id="prompt-text">
+                                <span class="prompt-placeholder">Génération du sujet en cours...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recording Indicator -->
+                    <div class="recording-section" id="recording-section">
+                        <div class="recording-indicator" id="recording-indicator">
+                            <span class="rec-dot"></span>
+                            <span class="rec-label">Enregistrement en cours</span>
+                        </div>
+                        <div class="audio-visualizer" id="audio-visualizer">
+                            <!-- Bars generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Exam Controls -->
+                    <div class="exam-controls">
+                        <button id="btn-stop-exam" class="btn-danger">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="6" y="6" width="12" height="12" rx="2" />
+                            </svg>
+                            Arrêter
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ RESULTS SCREEN ============ -->
+            <section id="screen-results" class="screen">
+                <div class="results-container">
+                    <div class="results-header">
+                        <div class="results-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </div>
+                        <h2>Tâche terminée !</h2>
+                        <p class="results-subtitle" id="results-subtitle">Entretien dirigé — 2:00</p>
+                    </div>
+
+                    <!-- AI Feedback (streaming) -->
+                    <div class="feedback-section" id="feedback-section">
+                        <div class="feedback-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                            <span>Feedback IA</span>
+                            <span class="feedback-streaming-badge hidden" id="feedback-streaming-badge">En
+                                cours...</span>
+                        </div>
+                        <div class="feedback-content" id="feedback-content">
+                            <p class="feedback-placeholder">Le feedback sera généré après l'examen...</p>
+                        </div>
+                    </div>
+
+                    <!-- Audio Playback -->
+                    <div class="playback-section" id="playback-section">
+                        <h3>Votre enregistrement</h3>
+                        <div class="audio-player" id="audio-player">
+                            <button id="btn-play-pause" class="btn-play">
+                                <svg id="icon-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                </svg>
+                                <svg id="icon-pause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                                    class="hidden">
+                                    <rect x="6" y="4" width="4" height="16" />
+                                    <rect x="14" y="4" width="4" height="16" />
+                                </svg>
+                            </button>
+                            <div class="player-progress">
+                                <div class="player-bar">
+                                    <div class="player-bar-fill" id="player-bar-fill"></div>
+                                </div>
+                                <div class="player-times">
+                                    <span id="player-current">0:00</span>
+                                    <span id="player-duration">0:00</span>
+                                </div>
+                            </div>
+                            <a id="btn-download" class="btn-download" title="Télécharger" download>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button id="btn-retry" class="btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="23 4 23 10 17 10" />
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                            </svg>
+                            Recommencer
+                        </button>
+                        <button id="btn-next-task" class="btn-primary" id="btn-next-task">
+                            Tâche suivante
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+                        <button id="btn-home" class="btn-ghost">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                            Accueil
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ HISTORY SCREEN ============ -->
+            <section id="screen-history" class="screen">
+                <div class="history-container">
+                    <button id="btn-back-history" class="btn-back">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Retour
+                    </button>
+                    <h2>Historique des sessions</h2>
+                    <div class="history-stats" id="history-stats">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div class="history-list" id="history-list">
+                        <p class="empty-state">Aucune session enregistrée pour le moment.</p>
+                    </div>
+                    <button id="btn-clear-history" class="btn-danger-outline" style="margin-top:1rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        Effacer l'historique
+                    </button>
+                </div>
+            </section>
+
+            <!-- ============ SETTINGS MODAL ============ -->
+            <div id="modal-settings" class="modal-overlay hidden">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Paramètres</h3>
+                        <button id="btn-close-settings" class="icon-btn" aria-label="Fermer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="setting-group">
+                            <label class="setting-label">Configuration API</label>
+                            <p class="input-hint" style="color: var(--success);">Vos clés API (Gemini et NVIDIA) sont
+                                maintenant sécurisées dans le backend (<code>envi.js</code>).</p>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label" for="setting-model">Modèle IA</label>
+                            <select id="setting-model" class="settings-select">
+                                <option value="github">GitHub AI - GPT-4o mini (Stable ⭐)</option>
+                                <option value="nvidia">NVIDIA Llama 3.1 (Haut de gamme)</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Sons de transition</label>
+                            <div class="toggle-switch-container">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-sounds" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span>Activer les alertes sonores</span>
+                            </div>
+                        </div>
+                        <div class="setting-group"
+                            style="border-top:1px solid #ddd; padding-top:15px; margin-top:15px;">
+                            <label class="setting-label">Sujets TCF (Base de données)</label>
+                            <button id="btn-sync-subjects" class="btn-secondary"
+                                style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+                                <span id="sync-icon">🔄</span> Mettre à jour depuis le Web
+                            </button>
+                            <p class="setting-hint">Synchronise les derniers sujets de PrepmonTCF et Réussir-TCF.</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-save-settings" class="btn-primary">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Audio elements for phase transitions -->
+    <audio id="sound-start" preload="auto"></audio>
+    <audio id="sound-transition" preload="auto"></audio>
+    <audio id="sound-end" preload="auto"></audio>
+    <audio id="sound-tick" preload="auto"></audio>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
